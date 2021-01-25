@@ -1,18 +1,23 @@
 import styled from 'styled-components'
 import db from '../db.json'
 import Widget from '../src/components/Widget'
+import Footer from '../src/components/Footer'
+import GitHubCorner from '../src/components/GitHubCorner'
+import QuizBackground from '../src/components/QuizBackground'
+import QuizLogo from '../src/components/QuizLogo'
+
 
 const Title = styled.h1`
   font-size: 50px;
   color: ${({ theme }) => theme.colors.primary};
 `;
 
-const BackgroundImage = styled.div`
-  background-image: url(${db.bg});
-  flex: 1;
-  background-size: cover;
-  background-position: center;
-`;
+// const BackgroundImage = styled.div`
+//   background-image: url(${db.bg});
+//   flex: 1;
+//   background-size: cover;
+//   background-position: center;
+// `;
 
 export const QuizContainer = styled.div`
   width: 100%;
@@ -27,7 +32,7 @@ export const QuizContainer = styled.div`
 
 export default function Home() {
   return (
-    <BackgroundImage>
+    <QuizBackground backgroundImage= { db.bg }>
         <QuizContainer>
           <Widget>
             <Widget.Header>
@@ -47,9 +52,10 @@ export default function Home() {
               <p>lorem ipsum dolor sit amet</p>
             </Widget.Content>
           </Widget>
-          
+
+          <Footer/>
         </QuizContainer>
-      
-    </BackgroundImage>
+      <GitHubCorner projectUrl="https://github.com/gsabreu"/>
+    </QuizBackground>
   )
 }
