@@ -1,12 +1,11 @@
-import styled from 'styled-components'
-import db from '../db.json'
-import Widget from '../src/components/Widget'
-import Footer from '../src/components/Footer'
-import GitHubCorner from '../src/components/GitHubCorner'
-import QuizBackground from '../src/components/QuizBackground'
-import QuizLogo from '../src/components/QuizLogo'
-import Head from 'next/head'
-
+import styled from 'styled-components';
+import Head from 'next/head';
+import db from '../db.json';
+import Widget from '../src/components/Widget';
+import Footer from '../src/components/Footer';
+import GitHubCorner from '../src/components/GitHubCorner';
+import QuizBackground from '../src/components/QuizBackground';
+import QuizLogo from '../src/components/QuizLogo';
 
 const Title = styled.h1`
   font-size: 50px;
@@ -33,33 +32,33 @@ export const QuizContainer = styled.div`
 
 export default function Home() {
   return (
-    <QuizBackground backgroundImage= { db.bg }>
+    <QuizBackground backgroundImage={db.bg}>
       <Head>
         <title>AluraQuiz - Modelo Base</title>
       </Head>
-        <QuizContainer>
-          <Widget>
-            <Widget.Header>
-              <h1>The legend of zelda</h1>
-            </Widget.Header>
+      <QuizContainer>
+        <Widget>
+          <Widget.Header>
+            <h1>The legend of zelda</h1>
+          </Widget.Header>
 
-            <Widget.Content>
-              <p>lorem ipsum dolor sit amet</p>
-            </Widget.Content>
+          <Widget.Content>
+            <p>lorem ipsum dolor sit amet</p>
+          </Widget.Content>
 
-          </Widget>
+        </Widget>
 
-          <Widget>
-            <Widget.Content>
-              <h1>Quizes da Galera</h1>
+        <Widget>
+          <Widget.Content>
+            <h1>Quizes da Galera</h1>
 
-              <p>lorem ipsum dolor sit amet</p>
-            </Widget.Content>
-          </Widget>
+            <p>lorem ipsum dolor sit amet</p>
+          </Widget.Content>
+        </Widget>
 
-          <Footer/>
-        </QuizContainer>
-      <GitHubCorner projectUrl="https://github.com/gsabreu"/>
+        <Footer />
+      </QuizContainer>
+      <GitHubCorner projectUrl="https://github.com/gsabreu" />
     </QuizBackground>
-  )
+  );
 }
