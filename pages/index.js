@@ -36,7 +36,9 @@ export default function Home() {
       <Head>
         <title>AluraQuiz - Modelo Base</title>
       </Head>
+      
       <QuizContainer>
+        <QuizLogo/>
         <Widget>
           <Widget.Header>
             <h1>The legend of zelda</h1>
