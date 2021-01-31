@@ -22,7 +22,13 @@ function LoadingWidget() {
     );
 };
 
-function QuestionWidget ({ question, totalQuestions, questionIndex }) {
+const screenStates = { 
+    QUIZ: 'QUIZ',
+    LOADING: 'LOADING',
+    RESULT : 'RESULT',
+}
+
+function QuestionWidget ({ question, totalQuestions, questionIndex, onSubmit }) {
     const questionId = `question__${questionIndex}`
     return (
         <Widget>
@@ -49,7 +55,12 @@ function QuestionWidget ({ question, totalQuestions, questionIndex }) {
                     {question.description}
                 </p>
 
-                <form>
+                <form 
+                    onSubmit = {(infosDoEvento) => {
+                        infosDoEvento.preventDefault();
+                        onSubmit();
+                    }
+                 }>
                     {question.alternatives.map((alternative, alternativeIndex) => {
                         const alternativeId = `alternative__${alternativeIndex}`
                         return (
@@ -77,20 +88,44 @@ function QuestionWidget ({ question, totalQuestions, questionIndex }) {
 };
 
 export default function QuizPage(){
-    const screenState = 'LOADING';
+    const [screenState, setScreenState] = React.useState(screenStates.LOADING);
     const totalQuestions = db.questions.length;
-    const questionIndex = 0;
+    const [currentQuestion, setCurrentQuestion] = React.useState(0);
+    const questionIndex = currentQuestion;
     const question = db.questions[questionIndex];
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            setScreenState(screenStates.QUIZ);
+        }, 1 * 1000);
+    }, []);
+    
+    function handleSubmit() {
+        const nextQuestion = questionIndex + 1;
+        
+        if (nextQuestion < totalQuestions) {
+            setCurrentQuestion(nextQuestion);   
+        } else {
+            setScreenState(screenStates.RESULT);
+        }
+        
+    }
+
     return (
        <QuizBackground>
            <QuizContainer>
                <QuizLogo/>
-               {screenState === 'QUIZ' &&  (<QuestionWidget
-                    question = {question}
-                    questionIndex= {questionIndex}
-                    totalQuestions = {totalQuestions}
-               />)}
-               {screenState === 'LOADING' && <LoadingWidget/>}
+               {screenState === screenStates.QUIZ &&  (
+                    <QuestionWidget
+                        question = {question}
+                        questionIndex= {questionIndex}
+                        totalQuestions = {totalQuestions}
+                        onSubmit = {handleSubmit}
+                    />
+                )}
+               {screenState === screenStates.LOADING && <LoadingWidget/>}
+
+               {screenState === screenStates.RESULT && <div> Você chegou ao fim </div>}
            </QuizContainer>
 
        </QuizBackground>
